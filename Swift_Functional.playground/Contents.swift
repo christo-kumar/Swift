@@ -116,3 +116,18 @@ func addBustardSurname(first: inout String, second: inout String) {
 var first = "Jon", second = "Ramsey"
 addBustardSurname(first: &first, second: &second)
 print("\(first) \(second)")
+
+
+//Classes and Struct
+class VideoMode {
+    var name: String
+    
+    init(name: String) {
+        self.name = name
+        
+    }
+}
+
+struct AudioMode {
+    var name: String
+}
