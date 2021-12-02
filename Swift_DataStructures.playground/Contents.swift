@@ -1,4 +1,5 @@
 import UIKit
+import Foundation
 
 //Tree
 class Node {
@@ -170,6 +171,99 @@ tree.add(value: 7)
 //tree.preOrder(node: tree.root)
 tree.inOrder(node: tree.root)
 //tree.postOrder(node: tree.root)
+
+//Linked List
+class LLNode {
+    
+    var value: Int
+    var next: LLNode?
+    
+    init(value: Int) {
+        self.value = value
+        self.next = nil
+    }
+}
+
+class LinkedList {
+    var head: LLNode
+    var size: Int
+    
+    init(headValue: Int) {
+        head = LLNode(value: headValue)
+        size = 1
+    }
+    
+    func add(value: Int) {
+        addNode(value: value, node: head)
+    }
+    
+    func addNode(value: Int, node: LLNode?) {
+        guard let current = node else {
+            return
+        }
+        if current.next == nil {
+            current.next = LLNode(value: value)
+        } else {
+            addNode(value: value, node: current.next)
+        }
+    }
+    
+    func find(value: Int) -> LLNode? {
+        if head.value == value {
+            return head
+        }
+        return findNode(value: value, node: head)
+    }
+    
+    func findNode(value: Int, node: LLNode?) -> LLNode? {
+        guard let next = node?.next else {
+            return nil
+        }
+        if next.value == value {
+            return node
+        } else {
+            print(next.value)
+            return findNode(value: value, node: node?.next)
+        }
+    }
+    
+    
+    func delete(value: Int) {
+        if head.value == value {
+            //head = head.next ??
+        } else {
+            let node = find(value: value)
+            if let prevNode = node {
+                if let delNode = prevNode.next {
+                    if let nextNode = delNode.next {
+                        prevNode.next = nextNode
+                    } else {
+                        prevNode.next = nil
+                    }
+                }
+            }
+        }
+    }
+    
+    func travLinkedList(node: LLNode?) {
+        if let current = node {
+            print(current.value)
+            travLinkedList(node: current.next)
+        }
+    }
+}
+
+var linkedList: LinkedList = LinkedList(headValue: 1)
+linkedList.add(value: 3)
+linkedList.add(value: 5)
+linkedList.add(value: 8)
+linkedList.add(value: 13)
+linkedList.delete(value: 13)
+linkedList.delete(value: 5)
+linkedList.travLinkedList(node: linkedList.head)
+
+
+
 
 
 
