@@ -4,11 +4,11 @@ import Darwin
 var greeting = "Hello, playground"
 
 //Factorial
-func factorial(number: Int) -> Int{
-    if number <= 0 {
+func factorial(number: Int) -> Int {
+    if (number <= 1) {
         return 1
     }
-    return number * factorial(number: number - 1)
+    return number * factorial(number: number-1)
 }
 
 print(factorial(number: 5))
@@ -28,86 +28,157 @@ fibbonaci(0, 0, 1, 8)
 
 //Reverse String
 func reverseString(original: String)->String {
-    var charArray = Array(original)
-    let arraySize = charArray.count - 1
-    let midIndex = charArray.count/2
-    for index in stride(from: 0, to: midIndex, by: 1) {
-        let srcIndex = index
-        let destIndex = arraySize - index
-        let hold = charArray[srcIndex]
-        charArray[srcIndex] = charArray[destIndex]
-        charArray[destIndex] = hold
+    var charArray = Array(original);
+    let size = charArray.count - 1;
+    let mid = size/2;
+    for index in stride(from: 0, through: mid, by: 1) {
+        let firstChar = charArray[index]
+        let secondChar = charArray[size-index]
+        charArray[index] = secondChar
+        charArray[size-index] = firstChar
     }
     return String(charArray)
 }
 print(reverseString(original: "catap"))
 
-//Bubble Sort
-//Compare with Adjacent
-//Each pass results in the greates being bubled to highest index
-func bubleSort(arr: [Int])-> [Int] {
-    let arrSize = arr.count-1
-    var copyArray = arr
-    for outer in stride(from: 0, to: arrSize, by: 1) {
-        let destIndex = arrSize - outer
-        for index in stride(from: 0, to: destIndex, by: 1) {
-            let cmpIndex = index + 1
-            if copyArray[index] > copyArray[cmpIndex] {
-                let temp = copyArray[index]
-                copyArray[index] = copyArray[cmpIndex]
-                copyArray[cmpIndex] = temp
+
+//Algo to test if string contains unique character
+func isUniqueCharacter(origalStr: String)-> Bool {
+    let retval: Bool = true
+    var boolArray = [Bool](repeating: false, count: 128)
+    let characArray = Array(origalStr)
+    for index in stride(from: 0, to: characArray.count, by: 1){
+        print("index is \(index)")
+        let charac = characArray[index]
+        guard let asciiVal = charac.asciiValue else {
+            continue
+        }
+        let isPresent = boolArray[Int(asciiVal)]
+        if (isPresent) {
+            print("I am Also here")
+            return false
+        } else {
+            print("I am here")
+            boolArray[Int(asciiVal)] = true
+        }
+    }
+    return retval;
+}
+
+isUniqueCharacter(origalStr: "batt")
+
+func isPermutationString(first: String, second: String)-> Bool {
+    let firstSorted = String(first.sorted())
+    let secondSorted = String(second.sorted())
+    return firstSorted == secondSorted ? true : false
+}
+
+isPermutationString(first: "Bata", second: "Baat")
+
+func urlifyString(original: String) -> String {
+    
+    return original.addingPercentEncoding(withAllowedCharacters:.urlHostAllowed) ?? ""
+}
+
+func urlifyString2(original: String) -> String {
+    let strArray = original.components(separatedBy: .whitespaces)
+    var retVal = ""
+    for subStr in strArray {
+        if(retVal.count > 0) {
+            retVal = retVal + "%20" + subStr
+        }
+        else {
+            retVal = subStr
+        }
+        
+    }
+    
+    return retVal
+}
+
+print(urlifyString2(original: "Hello How Are you"))
+
+//One or zero edits away
+//Compressor also implemented here
+func oneEditAway(first: String, second: String) -> Bool {
+    var diff = 0
+    let allowedDiff = 2
+    if first.count == second.count {
+        let firstArray = Array(first)
+        let secondArray = Array(second)
+        var firstMap: Dictionary<Character, Int> = Dictionary()
+        var secondMap: Dictionary<Character, Int> = Dictionary()
+        
+        //Populate both maps
+        for charac in firstArray {
+            if let value = firstMap[charac] {
+                firstMap[charac] = value + 1
+            } else {
+                firstMap[charac] = 1
+            }
+        }
+        
+        for charac in secondArray {
+            if let value = secondMap[charac] {
+                secondMap[charac] = value + 1
+            } else {
+                secondMap[charac] = 1
+            }
+            
+        }
+        
+        print(firstMap)
+        print(secondMap)
+       
+        for key in firstMap.keys {
+            if firstMap[key] != secondMap[key] {
+                diff = diff + 1
             }
         }
     }
-    return copyArray
-}
-print(bubleSort(arr: [2,3,4,1]))
-
-//Palantroms
-func isPalindrom(str: String) -> Bool {
-    let revStr = reverseString(original: str)
-    if revStr == str {
-        return true
-    }
-    return false
-}
-print(isPalindrom(str: "bab"))
-
-//All unique characters
-//Anagram can be implemented with same logic
-//comparing the numbers for each character in the map
-func isUniqueCharacter(str: String) -> Bool {
-    let charArr = Array(str)
-    var charMap: [Character: Int] = [:]
-    for char in charArr {
-        var count = charMap[char] ?? 0
-        count += 1
-        charMap[char] = count
+    if diff > allowedDiff {
+     return false
     }
     
-    for count in charMap.values {
-        if count != 1 { return false }
-    }
     return true
 }
 
-print(isUniqueCharacter(str: "abb"))
+oneEditAway(first: "abe", second: "aaf")
 
-//urlifyString
-//Asci encode
-//Spil the string and concatinate
-
-func urlifyString(str: String) -> String{
-    let splits = str.split(separator: Character(" "))
-    var urlFied = ""
-    for index in stride(from: 0, to: splits.count - 1, by: 1) {
-        if (index == 0) {
-            urlFied = urlFied + splits[index] + "%32" + splits[index+1]
-        } else {
-            urlFied = urlFied + "%32" + splits[index+1]
-        }
-    }
-    return urlFied
+//Remove Duplicates
+func removeDuplicate(original: String) -> String {
+    let uniqueSet = Set(original)
+    return String(uniqueSet)
 }
 
-print(urlifyString(str: "How are you dear"))
+//
+func sumList() {
+    let firstArray: [Int] = [6,2,8]
+    let secondArray: [Int] = [5,9,6]
+    var sumArray: [Int] = [0,0,0]
+    var remainder = 0
+    for index in stride(from: firstArray.count - 1, through: 0 , by: -1) {
+        print(index)
+        let num1 = firstArray[index]
+        let num2 = secondArray[index]
+        let sum = num1 + num2
+        if index == 0 {
+            sumArray[index] = sum + remainder
+        } else {
+            if (sum < 10) {
+                sumArray[index] = sum + remainder
+                remainder = 0
+            } else {
+                sumArray[index] = sum % 10 + remainder
+                remainder = 1
+            }
+        }
+    }
+    
+    print(sumArray)
+}
+
+sumList()
+
+
+
