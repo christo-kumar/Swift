@@ -172,7 +172,10 @@ tree.add(value: 7)
 tree.inOrder(node: tree.root)
 //tree.postOrder(node: tree.root)
 
-//Linked List
+/////////////////////////////////////////////////////////////// Sub tree detection /////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////// Linked List ////////////////////////////////////////////////////////////////////////////
 class LLNode {
     
     var value: Int
@@ -251,7 +254,27 @@ class LinkedList {
             travLinkedList(node: current.next)
         }
     }
+    
+    func dupLinkedList(fast: LLNode?, slow: LLNode?) -> Bool {
+        guard let fastNode = fast else {
+            return false
+        }
+        
+        guard let slowNode = slow else {
+            return false
+        }
+        print(fastNode.value)
+        print(slowNode.value)
+        if fastNode.value == slowNode.value {
+            return true
+        }
+        
+        return dupLinkedList(fast: fastNode.next, slow: slowNode.next)
+        
+    }
 }
+
+
 
 var linkedList: LinkedList = LinkedList(headValue: 1)
 linkedList.add(value: 3)
