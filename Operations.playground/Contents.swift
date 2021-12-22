@@ -59,7 +59,7 @@ func case3(){
             for numer in 1...6{ print("India \(numer)")}
     }
     
-    india.sync {
+    india.async {
             for numer in 11...16{ print("India \(numer)")}
     }
     
@@ -72,7 +72,7 @@ func case3(){
     }
 }
 
-//case3()
+case3()
 
 func case4(){
     let india = DispatchQueue(label: "india", attributes: .concurrent)
@@ -95,4 +95,4 @@ func case4(){
     }
 }
 
-case4()
+//case4()
