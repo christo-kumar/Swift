@@ -44,12 +44,10 @@ print(reverseString(original: "catap"))
 
 //Algo to test if string contains unique character
 func isUniqueCharacter(origalStr: String)-> Bool {
-    let retval: Bool = true
-    var boolArray = [Bool](repeating: false, count: 128)
+    var boolArray = [Bool].init(repeating: false, count: 128)
     let characArray = Array(origalStr)
-    for index in stride(from: 0, to: characArray.count, by: 1){
+    for (index, charac) in characArray.enumerated(){
         print("index is \(index)")
-        let charac = characArray[index]
         guard let asciiVal = charac.asciiValue else {
             continue
         }
@@ -62,7 +60,7 @@ func isUniqueCharacter(origalStr: String)-> Bool {
             boolArray[Int(asciiVal)] = true
         }
     }
-    return retval;
+    return true;
 }
 
 isUniqueCharacter(origalStr: "batt")
@@ -180,5 +178,60 @@ func sumList() {
 
 sumList()
 
+func compressString(_ thisStr: String)->String {
+    let charArray = Array(thisStr)
+    var charMap: Dictionary<Character,Int> = [:]
+    for key in charArray {
+        let countVal = charMap[key] ?? 0
+        charMap[key] = countVal + 1
+    }
+    var retval = ""
+    for key in charMap.keys {
+        let count = charMap[key] ?? 0
+        retval = retval + String.init(key) + "\(count)"
+    }
+    return retval
+}
+
+compressString("aaabbb")
+
+func removeDuplicates(_ thisStr: String) -> String {
+    let charSet = Set(thisStr)
+    return String(charSet)
+}
+
+removeDuplicates("aaabbb")
+
+func checkSubTree(_ thisStr: String, _ thatStr: String)->Bool {
+    //converted tree to string and checked the substring
+    //trees are sorted by default in java
+    return thisStr.contains(thatStr)
+}
+
+func isPalindrom(_ thisStr: String) -> Bool {
+    let revValue = reverseString(original: thisStr)
+    return thisStr == revValue
+}
+
+func fizzbizz() {
+    for index in (1...100) {
+        if index % 3 == 0 && index % 5 == 0 {
+            print("Fizzbizz")
+        }
+    }
+}
+
+func cipherDemo(_ thisStr: String) -> String {
+    var thisArray = Array(thisStr)
+    for index in stride(from: 0, to: thisArray.count, by: 1){
+        let value = thisArray[index]
+        let assciVal = value.asciiValue;
+        let newVal = (assciVal ?? 0) + 3
+        thisArray[index] = Character(UnicodeScalar(newVal))
+    }
+    return String(thisArray)
+}
+
+print(cipherDemo("Abc"))
 
 
