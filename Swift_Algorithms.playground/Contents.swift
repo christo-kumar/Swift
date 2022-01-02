@@ -180,7 +180,7 @@ sumList()
 
 func compressString(_ thisStr: String)->String {
     let charArray = Array(thisStr)
-    var charMap: Dictionary<Character,Int> = [:]
+    var charMap: Dictionary<Character,Int> = Dictionary<Character,Int>()
     for key in charArray {
         let countVal = charMap[key] ?? 0
         charMap[key] = countVal + 1

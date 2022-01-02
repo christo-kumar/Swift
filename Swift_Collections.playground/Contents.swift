@@ -53,6 +53,7 @@ for key in seasonName.keys {
 var starks: [String] = ["Ned","Cat","Rob","Sansa","Arya","Bryan"]
 starks.append("Rickon")
 starks[1] = "Catherine"
+starks.insert("Jon", at: 4);
 
 var lannisters: Array<String> = Array<String>()
 lannisters.append("Tywin")
@@ -68,9 +69,10 @@ for stark in starks {
 }
 
 //2. Range based traversing
+print("*******")
 var lanisterRange: CountableRange = 0..<lannisters.count
-for index in lanisterRange {
-    print(lannisters[index])
+for index in 0..<starks.count {
+    print(starks[index])
 }
 
 //3. Range Based Travesing - Another flavour
@@ -79,13 +81,13 @@ for index in (0..<starks.count).reversed() { //Reverse traversing
 }
 
 //4. Index Based Travesing
-for (index, name) in lannisters.enumerated(){
+for (index, name) in starks.enumerated(){
     print("\(index) : \(name)")
 }
 
 //5. Index Based Travesing - Another flavour
-for index in stride(from: lannisters.count-1, through: 0, by: -1) {
-   print(lannisters[index])
+for index in stride(from: starks.count-1, to: 0, by: -1) {
+   print(starks[index])
 }
 
 //While - Loop
