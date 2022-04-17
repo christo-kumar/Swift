@@ -1,9 +1,24 @@
 import UIKit
 
 
+func calPoints(_ ops: [String]) -> Int {
+    for chr in ops {
+        print(chr)
+    }
+    return 0
+}
+
+
 //Sets
+var starks: [String] = ["Ned","Cat","Rob","Sansa","Arya","Bryan"]
 var activeQuests: Set = ["GK","CF","LF","LF"];
 var completedQuests: Set = ["GK","CF","RF"];
+
+activeQuests.union(starks)
+
+for quest in completedQuests {
+    print(quest)
+}
 
 // Set operations
 //var commanQuests = activeQuests.intersection(completedQuests);
@@ -49,8 +64,8 @@ for key in seasonName.keys {
 
 
 
-//Arrays
-var starks: [String] = ["Ned","Cat","Rob","Sansa","Arya","Bryan"]
+//**************** Arrays ****************
+
 starks.append("Rickon")
 starks[1] = "Catherine"
 starks.insert("Jon", at: 4);
@@ -60,8 +75,35 @@ lannisters.append("Tywin")
 lannisters.append("Tyrion")
 lannisters.append("Jammie")
 lannisters.append("Cersie")
-
 lannisters.isEmpty
+
+var barathons:[String] = ["Renley", "The king", "Stannis"]
+var targareons: Array<String> = Array<String>()
+targareons.append(contentsOf: barathons)
+targareons.append("Danrys")
+
+for bara in barathons {
+    print(bara)
+}
+
+
+for index in 0..<barathons.count {
+    print(barathons[index])
+}
+
+for index in (0..<barathons.count).reversed() {
+    
+}
+
+for (index, name) in starks.enumerated() {
+    
+}
+
+for index in stride(from: starks.count-1, to: 0, by: -1) {
+    
+}
+
+
 
 //1. Simple Iteration
 for stark in starks {
@@ -95,6 +137,12 @@ var index = 0;
 while index < starks.count {
     starks[index]
     index += 1
+}
+
+//iteratior
+var starkIterator = starks.makeIterator()
+while let sName = starkIterator.next() {
+    print(sName)
 }
 
 //do-While - Loop
