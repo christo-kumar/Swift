@@ -4,5 +4,7 @@
         <page name='Iterating'/>
         <page name='Filter Reduce Map'/>
         <page name='Functions'/>
+        <page name='Properties'/>
+        <page name='Enums'/>
     </pages>
 </playground>
