@@ -3,5 +3,6 @@
     <pages>
         <page name='Iterating'/>
         <page name='Filter Reduce Map'/>
+        <page name='Functions'/>
     </pages>
 </playground>
