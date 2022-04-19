@@ -6,5 +6,8 @@
         <page name='Functions'/>
         <page name='Properties'/>
         <page name='Enums'/>
+        <page name='Initialisers'/>
+        <page name='Errors'/>
+        <page name='Protocol Any AnyObject'/>
     </pages>
 </playground>

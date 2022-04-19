@@ -94,7 +94,29 @@ func decodePostData(firstName: String) {
     }
     
     task.resume()
+}
+
+//Async Await
+
+func decodePostDataAsync(firstName: String) async {
     
+    guard let serviceUrl = URL(string: "https://url.com") else {
+        return
+    }
+    
+    let requesData = RequestData(firstName: firstName)
+    let requestBody = try? JSONEncoder().encode(requesData)
+    
+    var urlRequest = URLRequest(url: serviceUrl)
+    urlRequest.httpMethod = "post"
+    urlRequest.httpBody = requestBody
+    urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
+    do {
+        let (data, _ ) = try await URLSession.shared.data(for: urlRequest)
+        if (data.count != 0) {
+            try? JSONDecoder().decode(ResponseData.self, from: data)
+        }
+    } catch {}
 }
 
 func genericAPI<U:Encodable,T:Decodable>(param1: U, param2: T) {
