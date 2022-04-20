@@ -6,5 +6,6 @@
         <page name='Operations'/>
         <page name='Dispatch'/>
         <page name='UrlSession'/>
+        <page name='Encryption'/>
     </pages>
 </playground>

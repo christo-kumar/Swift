@@ -90,9 +90,39 @@ protocol CarDataSource4: class {
 
 //Preferrable way of creating the class only protocol swift 4.0 onwards
 //Class only protocol are suited for implementing the delegation pattern
+//Associated types are used to define the data types in concrete classes
 protocol CarDataSource5: AnyObject {
+    
+    associatedtype Code
+    var prodCode: Code { get }
     
     var color: String { get set }
     
     func getWheels()
+}
+
+//Protocol Composition
+class Car5: CarDataSource5, CarDataSource1 {
+    
+    typealias Code = String
+    var prodCode: String
+    //typealias Code = Int
+    //var prodCode: Int
+    
+    var color: String
+    
+    init(color: String) {
+        self.color = color
+        self.prodCode = ""
+    }
+    
+    func getWheels() {
+        
+    }
+}
+
+class Factory {
+    func getCar() -> some Car5 {
+        return Car5(color: "red")
+    }
 }

@@ -11,13 +11,19 @@ struct Movie {
 struct Library {
     
     let movies = [Movie(title: "LOTR", genre: "Kids", views: 12), Movie(title: "ET", genre: "Fiction", views: 12)]
+    private var _totalView = 0
     
     //COMPUTED PROPERTIES are called during initialisation
     var totalViews: Int {
-        print("...COMPUTED PROPERTIES")
-        return movies.reduce(0) { value, movie in
-            return value + movie.views
+        get {
+            //return _totalView
+            return movies.reduce(0) { value, movie in
+                return value + movie.views
+            }
+        } set {
+            _totalView = newValue
         }
+        
     }
     
     lazy var totalViews2: Int =  {
@@ -29,8 +35,12 @@ struct Library {
     
     //PROPERTY OBSERVER
     var downloadURL: String? {
+        willSet {
+            print("\(downloadURL ?? "NIL") - \(newValue ?? "")")
+        }
+        
         didSet {
-            downloadURL = "http://someulr/\(self.totalViews)"
+            print("\(oldValue ?? "NIL") - \(downloadURL ?? "")")
         }
     }
     
@@ -40,7 +50,17 @@ struct Library {
 var lib = Library()
 //print(lib.totalViews)
 //print(lib.totalViews2)
-lib.downloadURL = ""
+lib.downloadURL = "XYZ"
 print(lib.downloadURL!)
+//lib.totalViews = "1"
+
+struct TaylorFan {
+    static var favSong = "Oops I do it again"
+    var name: String
+    var age: Int
+}
+
+let fan = TaylorFan(name: "Christo", age: 0)
+print(TaylorFan.favSong)
 
 
