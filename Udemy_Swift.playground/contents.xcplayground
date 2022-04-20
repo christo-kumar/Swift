@@ -9,5 +9,6 @@
         <page name='Initialisers'/>
         <page name='Errors'/>
         <page name='Protocol Any AnyObject'/>
+        <page name='AccessControl'/>
     </pages>
 </playground>
