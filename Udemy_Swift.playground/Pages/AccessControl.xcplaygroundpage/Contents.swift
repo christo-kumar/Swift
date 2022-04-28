@@ -4,6 +4,7 @@ import Foundation
 
 var greeting = "Hello, playground"
 
+//open
 //public - Available to everyone
 //internal - Available to your swift code i.e your classes not to extenal framework
 //file private Available in same file
