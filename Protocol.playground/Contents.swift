@@ -82,6 +82,16 @@ struct Car: Equatable {
     }
 }
 
+//============== Comparable Protocol =============
+struct Student: Comparable {
+    static func < (lhs: Student, rhs: Student) -> Bool {
+        return lhs.marks < rhs.marks
+    }
+    
+    let name: String
+    let marks: Double
+}
+
 //============ Custom Hashable ====================
 
 struct Person {
