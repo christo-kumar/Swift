@@ -1,60 +1,62 @@
 import UIKit
 
+/**===========================  FUNCTIONS ==================================== **/
 
+//1. Simple Function
+func winterFell(lord: String,_ lady: String = "Cat Stark") -> String {
+    return "This is winterfell of \(lord) and \(lady)"
+}
+print(winterFell(lord: "Ned Stark", "Catherine"))
+print(winterFell(lord: "Ned Stark"))
 
-//Closers
+//2. Returning multiple values
+func starkSiblings()->(eldest:String, youngest: String ) {
+    return ("Arya", "Rickon")
+}
+var retval = starkSiblings()
+print("\(retval.eldest) \(retval.youngest)")
 
-//1. Trailing Closures
-func loadPicture(url: String, completion: (String) -> Void) {
-    completion(url)
+func somefunction() -> (retval1: String, reval2: String) {
+    return ("Hello","World")
+}
+let tup = somefunction()
+print(tup.retval1)
+
+//3. Variadic parameters
+func lannisterFamily(lannisters: String ...) {
+    for lannister in lannisters {
+        print(lannister)
+    }
 }
 
-loadPicture(url: "Some-URL") { retval in
+lannisterFamily(lannisters: "Cersie", "Jammie", "Tyrion")
+
+func variadicDemo(params: String...) {
+    for param in params {
+        print(param)
+    }
+}
+variadicDemo(params: "Hello", "World")
+
+//4. Passing as a Reference
+func addBustardSurname(first: inout String, second: inout String) {
+    first = first + " Snow"
+    second = second + " White"
 }
 
-//2. Escaping Closures
-func loadMovie(movieURL: String, completion: @escaping (String)->Void) {
-    //some async task
-    completion("task completed")
+var first = "Jon", second = "Ramsey"
+addBustardSurname(first: &first, second: &second)
+print("\(first) \(second)")
+
+func passByRefDemo(param: inout String) {
+    param = param + " World"
 }
+var str = "Hello"
+passByRefDemo(param: &str)
+print(str)
 
-loadPicture(url: "some url") { retval in
-    print(retval)
-}
 
-//Functional Programming
-var randomArray: [Int] = [4,3,8,9,11]
-
-//1. Sorted
-var sortedArray = randomArray.sorted { val1, val2 in
-    return val1 > val2
-}
-print(sortedArray)
-
-//2. Map
-var doubledArray = randomArray.map { valueAtIndex in
-    return valueAtIndex * 2
-}
-print(doubledArray)
-
-//3. Filter
-var filteredArray = randomArray.filter { valueAtIndex in
-    return valueAtIndex > 5
-}
-print(filteredArray)
-
-//4. Reduce - Multiply or add all the elements
-
-var combinedAsString = randomArray.reduce("") {(result, a) -> String in
-    return result + String(a)
-}
-
-print(combinedAsString)
-var allAdded = randomArray.reduce(0,+)
-print(allAdded)
-
-/**FUNCTION TYPES**/
-
+/**===========================  FUNCTIONS TYPES ==================================== **/
 //1. Basic Example
 var basicArthematic: (Int, Int) -> Int
 
@@ -82,52 +84,85 @@ func whichFunction(isAdd : Bool = false) -> (Int, Int) -> Int {
 
 print(whichFunction()(2,2))
 
-/** FUNCTIONS **/
+/**===========================  CLOSURES ==================================== **/
 
-//1. Simple Function
-func winterFell(lord: String,_ lady: String = "Cat Stark") -> String {
-    return "This is winterfell of \(lord) and \(lady)"
-}
-print(winterFell(lord: "Ned Stark", "Catherine"))
-print(winterFell(lord: "Ned Stark"))
-
-//2. Returning multiple values
-func starkSiblings()->(eldest:String, middle:String, youngest: String ) {
-    return ("Rob", "Arya", "Rickon")
-}
-var retval = starkSiblings()
-print("\(retval.eldest) \(retval.middle) \(retval.youngest)")
-
-//3. Variadic parameters
-func lannisterFamily(lannisters: String ...) {
-    for lannister in lannisters {
-        print(lannister)
-    }
+//NON-Escaping Clousures, Trailing Closure
+func closureDemo1(param: (String) -> Void) {
+    param("Hello World")
 }
 
-lannisterFamily(lannisters: "Cersie", "Jammie", "Tyrion")
-
-//4. Passing as a Reference
-func addBustardSurname(first: inout String, second: inout String) {
-    first = first + " Snow"
-    second = second + " White"
+closureDemo1 { param in
+    print(param)
 }
 
-var first = "Jon", second = "Ramsey"
-addBustardSurname(first: &first, second: &second)
-print("\(first) \(second)")
-
-
-//Classes and Struct
-class VideoMode {
-    var name: String
-    
-    init(name: String) {
-        self.name = name
-        
-    }
+//Escaping Closures
+func closureDemo2(param: @escaping (String)->Void) {
+    sleep(5)
+    param("Hello World")
 }
 
-struct AudioMode {
-    var name: String
+closureDemo2 { param in
+    print("Hello World")
 }
+
+//Closure as returned type
+func retvalFunc(param: String)-> Void {
+    print(param)
+}
+
+func closureDemo3() -> (String)->Void {
+    return retvalFunc
+}
+closureDemo3()("Hello")
+
+/**===========================  HOF  ==================================== **/
+var randomArray: [Int] = [4,3,8,9,11]
+
+//1. Map
+var doubledArray = randomArray.map { valueAtIndex in
+    return valueAtIndex * 2
+}
+print(doubledArray)
+var trippledArray = randomArray.map { param in
+    return param * 3
+}
+print(trippledArray)
+
+//2. Filter
+var filteredArray = randomArray.filter { valueAtIndex in
+    return valueAtIndex > 5
+}
+print(filteredArray)
+
+
+//4. Reduce - Multiply or add all the elements
+var combinedAsString = randomArray.reduce("") {(result, a) -> String in
+    return result + String(a)
+}
+print(combinedAsString)
+var allAdded = randomArray.reduce(0,+)
+print(allAdded)
+var allMultiplied = randomArray.reduce(1) { result, param in
+    return result * param
+}
+
+//5. Sorted
+var sortedArray = randomArray.sorted { val1, val2 in
+    return val1 > val2
+}
+
+var desSorted = randomArray.sorted { val1, val2 in
+    return val1 < val2
+}
+print(sortedArray)
+print(desSorted)
+
+
+
+
+
+
+
+
+
+
