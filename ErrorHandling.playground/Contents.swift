@@ -4,6 +4,7 @@ import Foundation
 var greeting = "Error Handling"
 
 //Error Handling Example-1
+//Defining Error
 enum BankAccountError: Error {
     case insufficientFunds
     case invalidAccount
