@@ -150,4 +150,16 @@ func demo() {
 
 demo()
 
+//=========== Conditional Conformance =========
+protocol CartProtocol {
+    func computeTotal() -> Double
+}
+
+struct CartItem {
+    let name: String
+    let price: Double
+}
+
+
+
 
