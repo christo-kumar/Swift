@@ -17,10 +17,17 @@ func findIndex<X: Equatable>(list: [X], value:X) ->Int? {
         return param == value
     }
 }
+struct Student: Codable {
+    
+}
 
 func serialiseToData<T: Codable> (_ value: T) {
     try? JSONEncoder().encode(value)
 }
+
+let student = Student()
+serialiseToData(student)
+
 
 
 ///==================== Generic Class ==========================================

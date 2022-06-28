@@ -129,3 +129,20 @@ class SavingAccount: Account {
     }
     
 }
+
+class someClass {
+    private func someMethod() {
+    }
+    
+}
+
+extension someClass {
+    fileprivate func other() {
+        self.someMethod()
+    }
+}
+
+let obj = someClass()
+obj.other()
+
+
