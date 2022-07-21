@@ -1,5 +1,5 @@
 # Swift
-Hello World to all the Swift Constructs
+Implements Swift Basics 
 - Data types
 - Collections
 - Protocols
